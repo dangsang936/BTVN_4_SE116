@@ -1,0 +1,27 @@
+[gd_scene format=3]
+
+[sub_resource type="LabelSettings" id="LabelSettings_hint"]
+font_size = 10
+font_color = Color(1, 1, 1, 1)
+outline_size = 3
+outline_color = Color(0, 0, 0, 0.85)
+
+[node name="SkillHintHUD" type="CanvasLayer"]
+
+[node name="Hints" type="VBoxContainer" parent="."]
+offset_left = 6.0
+offset_top = 4.0
+offset_right = 200.0
+offset_bottom = 40.0
+theme_override_constants/separation = 1
+mouse_filter = 2
+
+[node name="KnifeHint" type="Label" parent="Hints"]
+layout_mode = 2
+text = "Bấm nút V/L để phi đao"
+label_settings = SubResource("LabelSettings_hint")
+
+[node name="SpinHint" type="Label" parent="Hints"]
+layout_mode = 2
+text = "Bấm nút B/I để spin attack"
+label_settings = SubResource("LabelSettings_hint")

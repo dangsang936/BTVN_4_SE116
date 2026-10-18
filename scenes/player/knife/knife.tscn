@@ -1,0 +1,63 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/player/knife/knife.gd" id="1_knife"]
+[ext_resource type="Script" uid="uid://bvv36o7f0oebf" path="res://scripts/hit_area_3d.gd" id="2_hit"]
+
+[sub_resource type="StandardMaterial3D" id="Mat_blade"]
+albedo_color = Color(0.85, 0.88, 0.92, 1)
+metallic = 0.7
+roughness = 0.25
+emission_enabled = true
+emission = Color(0.35, 0.4, 0.5, 1)
+
+[sub_resource type="StandardMaterial3D" id="Mat_handle"]
+albedo_color = Color(0.45, 0.25, 0.12, 1)
+
+[sub_resource type="PrismMesh" id="Mesh_blade"]
+material = SubResource("Mat_blade")
+size = Vector3(0.14, 0.45, 0.04)
+
+[sub_resource type="BoxMesh" id="Mesh_handle"]
+material = SubResource("Mat_handle")
+size = Vector3(0.08, 0.06, 0.2)
+
+[sub_resource type="BoxMesh" id="Mesh_guard"]
+material = SubResource("Mat_handle")
+size = Vector3(0.22, 0.06, 0.04)
+
+[sub_resource type="SphereShape3D" id="Shape_body"]
+radius = 0.12
+
+[sub_resource type="BoxShape3D" id="Shape_hit"]
+size = Vector3(0.5, 0.8, 0.7)
+
+[node name="Knife" type="RigidBody3D"]
+collision_layer = 32
+gravity_scale = 0.0
+lock_rotation = true
+contact_monitor = true
+max_contacts_reported = 1
+script = ExtResource("1_knife")
+
+[node name="Blade" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0, -0.2)
+rotation = Vector3(-1.5707964, 0, 0)
+mesh = SubResource("Mesh_blade")
+
+[node name="Guard" type="MeshInstance3D" parent="."]
+mesh = SubResource("Mesh_guard")
+
+[node name="Handle" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0, 0.12)
+mesh = SubResource("Mesh_handle")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("Shape_body")
+
+[node name="HitArea3D" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 16
+script = ExtResource("2_hit")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitArea3D"]
+shape = SubResource("Shape_hit")
